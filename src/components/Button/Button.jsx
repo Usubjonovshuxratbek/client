@@ -1,4 +1,4 @@
-import './button.css';
+import './Button.css';
 
 const Button = props => {
 	const { type, title, onClick, disable } = props;
