@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import './App.css'
 import Card from './components/Card/Card'
 import Cart from './components/Cart/Cart'
@@ -53,6 +53,16 @@ const App = () => {
     telegram.MainButton.text = 'Sotib olish';
     telegram.MainButton.show()
   }
+
+  const onSendData = useCallback(() => {
+    telegram.senData(JSON.stringify(cartItems))
+  }, [cartItems])
+
+  useEffect(() => {
+    telegram.onEvent('maimButtonClick', onSendData)
+
+    return ()=> telegram.offEvent('mainButtonClick', onSendData)
+  }, [cartItems])
 
   return (
     <>
